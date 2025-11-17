@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/home/dodik/gitRepos/KeplerSolver/KeplerSolver.csproj": {}
+    "C:\\GitRepos\\KeplerSolver\\KeplerSolver.csproj": {}
   },
   "projects": {
-    "/home/dodik/gitRepos/KeplerSolver/KeplerSolver.csproj": {
+    "C:\\GitRepos\\KeplerSolver\\KeplerSolver.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/dodik/gitRepos/KeplerSolver/KeplerSolver.csproj",
+        "projectUniqueName": "C:\\GitRepos\\KeplerSolver\\KeplerSolver.csproj",
         "projectName": "KeplerSolver",
-        "projectPath": "/home/dodik/gitRepos/KeplerSolver/KeplerSolver.csproj",
-        "packagesPath": "/home/dodik/.nuget/packages/",
-        "outputPath": "/home/dodik/gitRepos/KeplerSolver/obj/",
+        "projectPath": "C:\\GitRepos\\KeplerSolver\\KeplerSolver.csproj",
+        "packagesPath": "C:\\Users\\frolo\\.nuget\\packages\\",
+        "outputPath": "C:\\GitRepos\\KeplerSolver\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/dodik/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\frolo\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.300"
       },
       "frameworks": {
         "net9.0": {
@@ -54,18 +54,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.9, 9.0.9]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.110/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.306/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -3,6 +3,7 @@ namespace PublicVariables
 	public static class Constants // Class for Constants
 	{
 		public const double MetersInKilometer = 1000;
+		public const double MinSecs = 60;
 	}
 
 	public class PlanetVariables // Class for Planet's variables
@@ -43,7 +44,9 @@ namespace PublicVariables
 		public double Inclination; // degrees (0 - 180, where 0° = equatorial orbit, 90° = polar orbit, 180° = retrograde orbit)
 		public double CurrentAnomaly; // degrees (0 - 360, shows where the satellite is currently in its orbit)
 
-		public double OrbitalPeriod; // minutes - the time of a full revolution around the Planet
+		public double OrbitalPeriod; // seconds - the time of a full revolution around the Planet
 		public double OrbitalVelocity; // meters per second
+
+		public double AngularVelocity; // degres/second
 	}
 }
