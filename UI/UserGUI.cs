@@ -11,6 +11,10 @@ namespace GUI
 			while (true)
 			{
 				Console.WriteLine($"===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
+				Console.WriteLine("6.Delete satellite");
+				Console.WriteLine("5.List all satellites  ");
+				Console.WriteLine("4.Select existing satellite");
+				Console.WriteLine("3.Create new satellite");
 				Console.WriteLine("2.Calculate the orbital velocity");
 				Console.WriteLine("1.Calculate the orbital period via height");
 				Console.WriteLine("0.exit");
@@ -49,9 +53,10 @@ namespace GUI
 				CurrentAnomaly = UserChosenCurrentAnomaly
 			};
 
-			double period = SatelliteMath.OrbitalCalculator.OrbitalPeriodviaHeight(iss, ChosenPlanet);
-			iss.OrbitalPeriod = period; // iss.OrbitalPeriod can be used later
-			Console.WriteLine($"Orbital period for {iss.Name}: {period:F2} minutes\n");
+			double periodseconds = SatelliteMath.OrbitalCalculator.OrbitalPeriodviaHeight(iss, ChosenPlanet);
+			iss.OrbitalPeriod = periodseconds ; // iss.OrbitalPeriod can be used later
+			double periodminutes = periodseconds * Constants.MinSecs;
+			Console.WriteLine($"Orbital period for {iss.Name}: {periodminutes:F2} minutes\n");
 		}
 
 		static void CalculateOrbVelocity()
@@ -70,6 +75,14 @@ namespace GUI
 			iss.OrbitalVelocity = orbVelocity;
 			Console.WriteLine($"Orbital velocity for {iss.Name}: {orbVelocity:F2} meters per sec\n");
 		}
+
+		static void CalculateAngularVelocity()
+        {
+			PlanetVariables ChosenPlanet = AskPlanet();
+			string UserChosenName = AskSatteliteName();
+
+
+        } // NOT ENDED WORK
 
 		static PlanetVariables AskPlanet()
 		{
