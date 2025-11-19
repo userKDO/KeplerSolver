@@ -2,6 +2,7 @@ using System;
 using PublicVariables;
 using SatelliteMath;
 using DataBases;
+using System.Security.AccessControl;
 
 namespace GUI
 {
@@ -11,7 +12,7 @@ namespace GUI
 		{
 			while (true)
 			{
-				Console.WriteLine($"===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
+				Console.WriteLine("===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
 				Console.WriteLine("7.Delete satellite");
 				Console.WriteLine("6.List all satellites");
 				Console.WriteLine("5.Select existing satellite");
@@ -49,7 +50,7 @@ namespace GUI
 						GUI_DeleteSatellite();
 						break;
 					default:
-						Console.WriteLine("{choice} is probably not a command. If u think that command is correct, problem might be on program's side");
+						Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");
 						break;
 				}
 			}
@@ -64,13 +65,13 @@ namespace GUI
 				return;
             }
 
-			 if (satellite.Altitude == 0)
+			 if (satellite.OrbitType == OrbitType.Circular && satellite.Altitude == 0)
 			{
 				Console.WriteLine("Satellite altitude not set.");
 				satellite.Altitude = AskAltitude();
 			}
 			
-			if (satellite.Inclination == 0)
+			if (satellite.OrbitType == OrbitType.Circular && satellite.Inclination == 0 )
 			{
 				Console.WriteLine("Satellite inclination not set.");  
 				satellite.Inclination = AskInclination();
@@ -96,7 +97,7 @@ namespace GUI
 				return;
             }
 
-			 if (satellite.Altitude == 0)
+			 if (satellite.OrbitType == OrbitType.Circular && satellite.Altitude == 0)
 			{
 				Console.WriteLine("Satellite altitude not set.");
 				satellite.Altitude = AskAltitude();
@@ -122,7 +123,7 @@ namespace GUI
         		return;
             }
 
-			if (satellite.OrbitalPeriod == 0)
+			if (satellite.OrbitType == OrbitType.Circular && satellite.OrbitalPeriod == 0)
             {
                 PlanetVariables planet = AskPlanet();
         		satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
@@ -136,8 +137,8 @@ namespace GUI
 			Console.WriteLine($"Angular velocity: {angularVelocity:F6} °/sec");
 			Console.WriteLine($"This is {angularVelocity * 60:F4} °/min");
 			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
-        } // NOT ENDED WORK
-
+        }
+		
 		// Data bases
 
 		// SatelliteDataBase:
@@ -152,13 +153,45 @@ namespace GUI
 				switch (choice)
 				{
 					case "1":
+						OrbitType orbitType = AskOrbitType();
+						
 						var satellite = new Satellite 
-						{ 
+						{
 							Name = UserChosenName,
-							Altitude = AskAltitude(),
-							Inclination = AskInclination(),
-							CurrentAnomaly = AskCurrentAnomaly()
+							//Altitude = AskAltitude(),
+							//Inclination = AskInclination(),
+							//CurrentAnomaly = AskCurrentAnomaly(),
+							OrbitType = orbitType
 						};
+
+						switch (orbitType)
+                        {
+                            case OrbitType.Circular:
+								satellite.Altitude = AskAltitude();
+								satellite.Inclination = AskInclination();
+								satellite.CurrentAnomaly = AskCurrentAnomaly();
+								satellite.Eccentricity = 0;
+								break;
+							case OrbitType.Elliptical:
+								satellite.Inclination = AskInclination();
+                        		satellite.CurrentAnomaly = AskCurrentAnomaly();
+
+								double periapsis = AskPeriapsis();
+								double apoapsis = AskApoapsis();
+								satellite.ArgumentOfPeriapsis = AskArgumentOfPeriapsis();
+
+								PlanetVariables planet = AskPlanet();
+								satellite.SemiMajorAxis = SatelliteMath.OrbitalCalculator.CalculateSemiMajorAxis(periapsis, apoapsis);
+								satellite.Eccentricity = SatelliteMath.OrbitalCalculator.CalculateEccentricity(periapsis, apoapsis, planet.Radius);
+								break;
+							case OrbitType.Geostationary:
+								satellite.Altitude = 35786; // Geostationary's altitude
+								satellite.Inclination = 0;
+								satellite.Eccentricity = 0;
+								satellite.CurrentAnomaly = 0;
+								Console.WriteLine("Geostationary orbit parameters set automatically");
+								break;
+                        }
 
 						DataBases.SatelliteDataBase.AddSatellite(satellite); // RETURNING OBJECT, NOT A STRING
 						Console.WriteLine($"{UserChosenName} added into a database");
@@ -177,7 +210,38 @@ namespace GUI
 			var satellites = DataBases.SatelliteDataBase.GetAllSatellites();
 			foreach (var sat in satellites)
 			{
-				Console.WriteLine($" - {sat.Name} (Alt: {sat.Altitude}km, Inc: {sat.Inclination}°)");
+				Console.WriteLine($"\n=== {sat.Name} ===");
+				Console.WriteLine($"Orbit type: {sat.OrbitType}");
+				
+				if (sat.OrbitType == OrbitType.Circular || sat.OrbitType == OrbitType.Geostationary)
+				{
+					Console.WriteLine($"Altitude: {sat.Altitude} km");
+				}
+				
+				if (sat.OrbitType == OrbitType.Elliptical)
+				{
+					Console.WriteLine($"Semi-major axis: {sat.SemiMajorAxis:F0} km");
+					Console.WriteLine($"Eccentricity: {sat.Eccentricity:F3}");
+					Console.WriteLine($"Argument of periapsis: {sat.ArgumentOfPeriapsis}°");
+				}
+				
+				Console.WriteLine($"Inclination: {sat.Inclination}°");
+				Console.WriteLine($"Current anomaly: {sat.CurrentAnomaly}°");
+				
+				// Рассчитанные параметры (если есть)
+				if (sat.OrbitalPeriod > 0)
+					Console.WriteLine($"Orbital period: {sat.OrbitalPeriod / 60:F1} min");
+				if (sat.OrbitalVelocity > 0)
+					Console.WriteLine($"Orbital velocity: {sat.OrbitalVelocity:F0} m/s");
+				if (sat.AngularVelocity > 0)
+					Console.WriteLine($"Angular velocity: {sat.AngularVelocity:F4} °/s");
+				
+				Console.WriteLine("---");
+			}
+			
+			if (satellites.Count == 0)
+			{
+				Console.WriteLine("No satellites in database");
 			}
 		}
 
@@ -372,7 +436,52 @@ namespace GUI
                 		break;
                 }
             }
-			//Satellite? satellite = DataBases.SatelliteDataBase.GetSatellite(UserChosenName);
+        }
+
+		static OrbitType AskOrbitType()
+        {
+            while (true)
+            {
+                Console.WriteLine("Select orbit type:");
+				Console.WriteLine("1. Circullar orbit");
+				Console.WriteLine("2. Elliptical orbit");
+				Console.WriteLine("3. Geostationary orbit");
+				Console.WriteLine("4. Polar orbit");
+
+				var choice = Console.ReadLine();
+				switch (choice)
+                {
+                    case "1":
+						return OrbitType.Circular;
+					case "2":
+						return OrbitType.Elliptical;
+					case "3":
+						return OrbitType.Geostationary;
+					case "4":
+						return OrbitType.Polar;
+					default:
+						Console.WriteLine($"Wrong answer: {choice}");
+						break;
+                }
+            }
+        }
+
+		static double AskPeriapsis()
+        {
+            Console.WriteLine("Please, enter Periapsis altitude (km): ");
+			return SafeParseDouble(Console.ReadLine());
+        }
+
+		static double AskApoapsis()
+        {
+            Console.WriteLine("Please, enter Apoapsis altitude (km): ");
+			return SafeParseDouble(Console.ReadLine());
+        }
+
+		static double AskArgumentOfPeriapsis()
+        {
+            Console.WriteLine("Please enter Argument of periapsis (degrees): ");
+			return SafeParseDouble(Console.ReadLine());
         }
 	}
 }
