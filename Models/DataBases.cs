@@ -36,5 +36,24 @@ namespace DataBases
         {
             return _satellites.Any(s=> s.Name == name);
         }   
+
+        public static void UpdateSatellite(Satellite updatedSatellite)
+        {
+            if (updatedSatellite?.Name == null) // null check
+            {
+                Console.WriteLine("Cannot update satellite: name is null");
+                return;
+            }
+
+            var existing = GetSatellite(updatedSatellite.Name);
+            if (existing != null)
+            {
+                existing.Altitude = updatedSatellite.Altitude;
+                existing.Inclination = updatedSatellite.Inclination;
+                existing.OrbitalPeriod = updatedSatellite.OrbitalPeriod;
+                existing.OrbitalVelocity = updatedSatellite.OrbitalVelocity;
+                existing.AngularVelocity = updatedSatellite.AngularVelocity;
+            }
+        }
     }
 }
