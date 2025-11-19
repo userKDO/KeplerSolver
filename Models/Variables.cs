@@ -47,6 +47,21 @@ namespace PublicVariables
 		public double OrbitalPeriod; // seconds - the time of a full revolution around the Planet
 		public double OrbitalVelocity; // meters per second
 
-		public double AngularVelocity; // degres/second
+		public double AngularVelocity; // degrees/second
+
+		public double Eccentricity; // (0-1) - 0=circular, 0-1=elliptical, 1=parabolic
+		public double SemiMajorAxis; // km - half of longest diameter of ellipse
+		public double ArgumentOfPeriapsis; // degrees (0-360) - orientation of ellipse in orbital plane
+
+		public OrbitType OrbitType { get; set; }
 	}
+
+	public enum OrbitType
+    {
+        Circular,
+		Elliptical,
+		Geostationary,
+		Polar,
+		Molniya
+    }
 }
