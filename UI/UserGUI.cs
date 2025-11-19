@@ -12,10 +12,11 @@ namespace GUI
 			while (true)
 			{
 				Console.WriteLine($"===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
-				Console.WriteLine("6.Delete satellite");
-				Console.WriteLine("5.List all satellites");
-				Console.WriteLine("4.Select existing satellite");
-				Console.WriteLine("3.Create new satellite");
+				Console.WriteLine("7.Delete satellite");
+				Console.WriteLine("6.List all satellites");
+				Console.WriteLine("5.Select existing satellite");
+				Console.WriteLine("4.Create new satellite");
+				Console.WriteLine("3.Calculate the angular velocity");
 				Console.WriteLine("2.Calculate the orbital velocity");
 				Console.WriteLine("1.Calculate the orbital period via height");
 				Console.WriteLine("0.exit");
@@ -33,15 +34,18 @@ namespace GUI
 						CalculateOrbVelocity();
 						break;
 					case "3":
-						GUI_CreateSatellite();
+						CalculateAngularVelocity();
 						break;
 					case "4":
-						GUI_GetSatellite();
+						GUI_CreateSatellite();
 						break;
 					case "5":
-						GUI_GetAllSatellites();
+						GUI_GetSatellite();
 						break;
 					case "6":
+						GUI_GetAllSatellites();
+						break;
+					case "7":
 						GUI_DeleteSatellite();
 						break;
 					default:
@@ -53,55 +57,91 @@ namespace GUI
 		// Orbital stuff
 		static void CalculOrbPeriodViaHeightGUI()
 		{
-			PlanetVariables ChosenPlanet = AskPlanet();
-			string UserChosenName = AskSatelliteName();
-			double UserChosenAltitude = AskAltitude();
-			double UserChosenInclination = AskInclination();
-			double UserChosenCurrentAnomaly = AskCurrentAnomaly();
+			Satellite? satellite = ChooseSatellite();
+			if (satellite == null)
+            {
+                Console.WriteLine("No satellite selected");
+				return;
+            }
 
-			var iss = new Satellite
+			 if (satellite.Altitude == 0)
 			{
-				Name = UserChosenName,
-				Altitude = UserChosenAltitude,
-				Inclination = UserChosenInclination,
-				CurrentAnomaly = UserChosenCurrentAnomaly
-			};
+				Console.WriteLine("Satellite altitude not set.");
+				satellite.Altitude = AskAltitude();
+			}
+			
+			if (satellite.Inclination == 0)
+			{
+				Console.WriteLine("Satellite inclination not set.");  
+				satellite.Inclination = AskInclination();
+			}
 
-			double periodseconds = SatelliteMath.OrbitalCalculator.OrbitalPeriodviaHeight(iss, ChosenPlanet);
-			iss.OrbitalPeriod = periodseconds ; // iss.OrbitalPeriod can be used later
-			double periodminutes = periodseconds * Constants.MinSecs;
-			Console.WriteLine($"Orbital period for {iss.Name}: {periodminutes:F2} minutes\n");
+			PlanetVariables planet = AskPlanet();
+			double periodSeconds = SatelliteMath.OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
+			satellite.OrbitalPeriod = periodSeconds;
+			
+			double periodMinutes = periodSeconds / 60;
+			Console.WriteLine($"Orbital period for {satellite.Name}: {periodMinutes:F2} minutes\n");
+
+			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
 		}
 
 		static void CalculateOrbVelocity()
 		{
-			PlanetVariables ChosenPlanet = AskPlanet();
-			string UserChosenName = AskSatelliteName();
-			double UserChosenAltitude = AskAltitude();
+			Satellite? satellite = ChooseSatellite();
 
-			var iss = new Satellite
+			if (satellite == null)
+            {
+                Console.WriteLine("No satellite selected");
+				return;
+            }
+
+			 if (satellite.Altitude == 0)
 			{
-				Name = UserChosenName,
-				Altitude = UserChosenAltitude,
-			};
+				Console.WriteLine("Satellite altitude not set.");
+				satellite.Altitude = AskAltitude();
+				DataBases.SatelliteDataBase.UpdateSatellite(satellite);
+			}
 
-			double orbVelocity = SatelliteMath.OrbitalCalculator.OrbitalVelocity(iss, ChosenPlanet);
-			iss.OrbitalVelocity = orbVelocity;
-			Console.WriteLine($"Orbital velocity for {iss.Name}: {orbVelocity:F2} meters per sec\n");
+			PlanetVariables planet = AskPlanet();
+			double orbVelocity = SatelliteMath.OrbitalCalculator.OrbitalVelocity(satellite, planet);
+			satellite.OrbitalVelocity = orbVelocity;
+			
+			Console.WriteLine($"Orbital velocity for {satellite.Name}: {orbVelocity:F2} m/s");
+			Console.WriteLine($"This is {orbVelocity * 3.6:F2} km/h\n");
+
+			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
 		}
 
 		static void CalculateAngularVelocity()
         {
-			PlanetVariables ChosenPlanet = AskPlanet();
-			string UserChosenName = AskSatelliteName();
+			Satellite? satellite = ChooseSatellite();
+			if (satellite == null)
+            {
+                Console.WriteLine("No satellite selected.");
+        		return;
+            }
 
+			if (satellite.OrbitalPeriod == 0)
+            {
+                PlanetVariables planet = AskPlanet();
+        		satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
 
+				double periodMinutes = satellite.OrbitalPeriod / 60;
+        		Console.WriteLine($"Calculated orbital period: {periodMinutes:F2} minutes");
+            }
+
+			double angularVelocity = SatelliteMath.OrbitalCalculator.AngularVelocity(satellite);
+			satellite.AngularVelocity = angularVelocity;
+			Console.WriteLine($"Angular velocity: {angularVelocity:F6} °/sec");
+			Console.WriteLine($"This is {angularVelocity * 60:F4} °/min");
+			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
         } // NOT ENDED WORK
 
 		// Data bases
 
 		// SatelliteDataBase:
-		static void GUI_CreateSatellite()
+		static Satellite GUI_CreateSatellite()
 		{
 			while (true)
 			{
@@ -122,7 +162,7 @@ namespace GUI
 
 						DataBases.SatelliteDataBase.AddSatellite(satellite); // RETURNING OBJECT, NOT A STRING
 						Console.WriteLine($"{UserChosenName} added into a database");
-                		return;
+                		return satellite;
 					case "2":
 						break;
 					default:
@@ -177,6 +217,41 @@ namespace GUI
 				}
 			}
 		}
+
+		static Satellite? GUI_WORK_GetSatellite()
+        {
+            while (true)
+			{
+				string UserChosenName = AskSatelliteName();
+				Console.WriteLine($"Your name of satellite is: {UserChosenName}, right?");
+				Console.WriteLine("1.Yes/2.No:");
+				var choice = Console.ReadLine();
+				switch (choice)
+				{
+					case "1":
+						Satellite? foundSatellite = DataBases.SatelliteDataBase.GetSatellite(UserChosenName);
+
+						if (foundSatellite != null)
+						{
+							return foundSatellite;
+						}
+						else
+                		{
+                    		Console.WriteLine($"Satellite '{UserChosenName}' not found in database");
+                		}
+						break;
+					case "2":
+						break;
+					default:
+						Console.WriteLine($"Wrong answer: {choice}");
+						break;
+				}
+
+				Console.WriteLine("Continue searching? (1.Yes/2.No)");
+        		var continueChoice = Console.ReadLine();
+        		if (continueChoice == "2") return null;
+			}
+        }
 
 		static void GUI_DeleteSatellite()
 		{
@@ -269,5 +344,35 @@ namespace GUI
 		{
 			return double.TryParse(input, out double result) ? result : 0;
 		}
+
+		static Satellite? ChooseSatellite()
+        {
+			while (true)
+            {
+                Console.WriteLine("You want to create new satellite or use existing?");
+        		Console.WriteLine("1. Create new satellite");
+        		Console.WriteLine("2. Use existing satellite"); 
+        		Console.WriteLine("3. List all satellites");
+        		Console.WriteLine("0. Back to menu");
+
+				var choice = Console.ReadLine();
+				switch (choice)
+                {
+                    case "1":
+						return GUI_CreateSatellite();
+					case "2":
+						return GUI_WORK_GetSatellite();
+					case "3":
+						GUI_GetAllSatellites();
+                		break;
+					case "0":
+						return null;
+					default:
+                		Console.WriteLine($"Invalid choice: {choice}");
+                		break;
+                }
+            }
+			//Satellite? satellite = DataBases.SatelliteDataBase.GetSatellite(UserChosenName);
+        }
 	}
 }

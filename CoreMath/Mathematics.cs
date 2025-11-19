@@ -22,9 +22,8 @@ namespace SatelliteMath
 
         public static double AngularVelocity(Satellite satellite)
         { 
-            double angularVelocity = 360.0 / satellite.OrbitalPeriod;
-
-            return angularVelocity;
+            return 360.0 / satellite.OrbitalPeriod; // deegrees per second
+            // ω = 360° / T
         }
     }
 }
