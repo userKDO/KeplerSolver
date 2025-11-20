@@ -30,9 +30,11 @@ namespace SatelliteMath
             return periodSeconds;
         }
 
-        public static double CalculateSemiMajorAxis(double periapsis, double apoapsis)
+        public static double CalculateSemiMajorAxis(double periapsisAltitude, double apoapsisAltitude, double planetRadius)
         {
-            return (periapsis + apoapsis) / 2;
+            double periapsisDistance = periapsisAltitude + planetRadius; // range from the center
+            double apoapsisDistance = apoapsisAltitude + planetRadius;   // tange from the center
+            return (periapsisDistance + apoapsisDistance) / 2;
         }
 
         private static double CalculateCurrentDistance(Satellite satellite, PlanetVariables planet, double trueAnomalyDegrees)
