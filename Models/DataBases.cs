@@ -48,6 +48,16 @@ namespace DataBases
             var existing = GetSatellite(updatedSatellite.Name);
             if (existing != null)
             {
+                if (updatedSatellite.Eccentricity >= 0 && updatedSatellite.Eccentricity < 1)
+                {
+                    existing.Eccentricity = updatedSatellite.Eccentricity;
+                }
+                
+                if (updatedSatellite.Inclination >= 0 && updatedSatellite.Inclination <= 180)
+                {
+                    existing.Inclination = updatedSatellite.Inclination;
+                }
+
                 existing.Altitude = updatedSatellite.Altitude;
                 existing.Inclination = updatedSatellite.Inclination;
                 existing.OrbitalPeriod = updatedSatellite.OrbitalPeriod;

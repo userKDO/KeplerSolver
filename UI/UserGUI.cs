@@ -123,20 +123,31 @@ namespace GUI
         		return;
             }
 
-			if (satellite.OrbitType == OrbitType.Circular && satellite.OrbitalPeriod == 0)
-            {
-                PlanetVariables planet = AskPlanet();
-        		satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
+			PlanetVariables planet = AskPlanet();
+			Console.WriteLine("Calculate: 1. Mean angular velocity  2. Instantaneous angular velocity");
+			var choice = Console.ReadLine();
 
-				double periodMinutes = satellite.OrbitalPeriod / 60;
-        		Console.WriteLine($"Calculated orbital period: {periodMinutes:F2} minutes");
-            }
+			double angularVelocity;
 
-			double angularVelocity = SatelliteMath.OrbitalCalculator.AngularVelocity(satellite);
+			if (choice == "2")
+			{
+				Console.Write("Enter true anomaly (degrees): ");
+				double trueAnomaly = SafeParseDouble(Console.ReadLine());
+				angularVelocity = OrbitalCalculator.InstantaneousAngularVelocity(satellite, planet, trueAnomaly);
+				Console.WriteLine($"Instantaneous angular velocity: {angularVelocity:F6} °/sec");
+			}
+			else
+			{
+				if (satellite.OrbitalPeriod == 0)
+				{
+					satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
+				}
+				angularVelocity = OrbitalCalculator.AngularVelocity(satellite);
+				Console.WriteLine($"Mean angular velocity: {angularVelocity:F6} °/sec");
+			}
+			
 			satellite.AngularVelocity = angularVelocity;
-			Console.WriteLine($"Angular velocity: {angularVelocity:F6} °/sec");
-			Console.WriteLine($"This is {angularVelocity * 60:F4} °/min");
-			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
+			SatelliteDataBase.UpdateSatellite(satellite);
         }
 		
 		// Data bases
@@ -183,6 +194,8 @@ namespace GUI
 								PlanetVariables planet = AskPlanet();
 								satellite.SemiMajorAxis = SatelliteMath.OrbitalCalculator.CalculateSemiMajorAxis(periapsis, apoapsis);
 								satellite.Eccentricity = SatelliteMath.OrbitalCalculator.CalculateEccentricity(periapsis, apoapsis, planet.Radius);
+
+								satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
 								break;
 							case OrbitType.Geostationary:
 								satellite.Altitude = 35786; // Geostationary's altitude

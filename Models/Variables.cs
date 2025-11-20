@@ -36,12 +36,24 @@ namespace PublicVariables
 
 	public class Satellite // Class for satellite's variables
 	{
-		public string? Name;// Satellite's name
+		private double _eccentricity;
+		private double _inclination;
 
-		public double Altitude; // km above Earth (will determine the future flight speed - the higher the slower, the period of revolution around the earth and the field of view)
+		public string? Name { get; set; } // Satellite's name
+		public double Altitude { get; set; } // km above Earth (will determine the future flight speed - the higher the slower, the period of revolution around the earth and the field of view)
 
 		// Working with degrees
-		public double Inclination; // degrees (0 - 180, where 0° = equatorial orbit, 90° = polar orbit, 180° = retrograde orbit)
+		public double Inclination
+        {
+            get => _inclination;
+			set => _inclination = value >= 0 && value <= 180 ? value: throw new ArgumentException("Inclination must be 0-180°");
+        } 	// degrees (0 - 180, where 0° = equatorial orbit, 90° = polar orbit, 180° = retrograde orbit)
+		public double Eccentricity
+        {
+            get => _eccentricity;
+        	set => _eccentricity = value >= 0 && value < 1 ? value : throw new ArgumentException("Eccentricity must be 0-1");
+        } 	// (0-1) - 0=circular, 0-1=elliptical, 1=parabolic
+
 		public double CurrentAnomaly; // degrees (0 - 360, shows where the satellite is currently in its orbit)
 
 		public double OrbitalPeriod; // seconds - the time of a full revolution around the Planet
@@ -49,7 +61,7 @@ namespace PublicVariables
 
 		public double AngularVelocity; // degrees/second
 
-		public double Eccentricity; // (0-1) - 0=circular, 0-1=elliptical, 1=parabolic
+		
 		public double SemiMajorAxis; // km - half of longest diameter of ellipse
 		public double ArgumentOfPeriapsis; // degrees (0-360) - orientation of ellipse in orbital plane
 
