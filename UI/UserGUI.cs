@@ -192,7 +192,7 @@ namespace GUI
 								satellite.ArgumentOfPeriapsis = AskArgumentOfPeriapsis();
 
 								PlanetVariables planet = AskPlanet();
-								satellite.SemiMajorAxis = SatelliteMath.OrbitalCalculator.CalculateSemiMajorAxis(periapsis, apoapsis);
+								satellite.SemiMajorAxis = SatelliteMath.OrbitalCalculator.CalculateSemiMajorAxis(periapsis, apoapsis, planet.Radius);
 								satellite.Eccentricity = SatelliteMath.OrbitalCalculator.CalculateEccentricity(periapsis, apoapsis, planet.Radius);
 
 								satellite.OrbitalPeriod = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
