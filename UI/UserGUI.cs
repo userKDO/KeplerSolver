@@ -362,6 +362,11 @@ namespace GUI
 			}
 		}
 
+		private static double SafeParseDouble(string? input)
+		{
+			return double.TryParse(input, out double result) ? result : 0;
+		}
+
 		// ask methods
 
 		static PlanetVariables AskPlanet()
@@ -415,11 +420,6 @@ namespace GUI
 			Console.Write("Please enter Current anomaly(if you don't know just type 0): ");
 			double UserChosenCurrentAnomaly = SafeParseDouble(Console.ReadLine());
 			return UserChosenCurrentAnomaly;
-		}
-
-		private static double SafeParseDouble(string? input)
-		{
-			return double.TryParse(input, out double result) ? result : 0;
 		}
 
 		static Satellite? ChooseSatellite()

@@ -161,7 +161,7 @@ namespace SatelliteMath
             // r = a * (1 - e²) / (1 + e * cos(θ))
             // x = r * cos(θ)  
             // y = r * sin(θ)
-
+            
             double theta = trueAnomaly * Math.PI / 180;
 
             double semiMajorAxisMeters = satellite.SemiMajorAxis * Constants.MetersInKilometer;
