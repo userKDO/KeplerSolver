@@ -56,20 +56,7 @@ namespace GUI
 			}
 		}
 		// Orbital stuff
-		/// </summary>
-        /// Calculates orbital period using Kepler's third law: T = 2π * √(a³ / μ)
-        /// </summary>
-		/// <param name="satellite">Satellite object with orbital parameters</param>
-		/// <param name="planet">Celestial body with gravitational parameter</param>
-		/// <returns>Orbital period in seconds</return>
-		/// <exception cref="ArgumentException">Thrown when semi-major axis cannot be determined from provided parameters</exception>
-		/// <example>
-		/// <code>
-		/// var satellite = new Satellite { Altitude = 400, Eccentricity = 0};
-		/// var period = OrbitalCalculator.OrbitalPeriodViaHeight(satellite, Planet.Earth);
-		/// // period ~ 5550 seconds (92.5 minutes)
-		/// </code>
-		/// </example>
+
 		static void CalculOrbPeriodViaHeightGUI()
 		{
 			Satellite? satellite = ChooseSatellite();
@@ -101,9 +88,6 @@ namespace GUI
 			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
 		}
 
-		/// <summary>
-        /// Calculates orbital velocity
-        /// </summary>
 		static void CalculateOrbVelocity()
 		{
 			Satellite? satellite = ChooseSatellite();

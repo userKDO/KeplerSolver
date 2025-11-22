@@ -48,6 +48,11 @@ namespace PublicVariables
             get => _inclination;
 			set => _inclination = value >= 0 && value <= 180 ? value: throw new ArgumentException("Inclination must be 0-180°");
         } 	// degrees (0 - 180, where 0° = equatorial orbit, 90° = polar orbit, 180° = retrograde orbit)
+		/// <summary>
+        /// Orbital eccentricity (0 = circular, 0-1 = elliptical, 1 = parabolic)
+        /// </summary>
+		/// <value>Double value between 0 and 1</value>
+		/// <exception cref="ArgumentException">Thrown when value is not in range [0,1)</exception>
 		public double Eccentricity
         {
             get => _eccentricity;
