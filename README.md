@@ -18,7 +18,16 @@ C# library for satellite orbit calculations using Keplerian mechanics.
 # Install DocFX
 dotnet tool install -g docfx
 
+# Install Node.js
+Download from: https://nodejs.org/
+# Clone and build the project
+git clone https://github.com/yourusername/KeplerSolver.git
+cd KeplerSolver
+dotnet build
+
 # Generate and serve documentation
+mkdir docs
 cd docs
 docfx docfx.json --serve
+
 # Opens http://localhost:8080 with full documentatio
