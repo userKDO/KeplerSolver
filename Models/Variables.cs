@@ -122,7 +122,7 @@ namespace PublicVariables
         /// This is the slope of satellite(0-180, where 0° = equatorial orbit, 90° = polar orbit, 180° = retrograde orbit)
         /// </summary>
 		/// <value>double value between 0 and 180</value>
-		/// <exception cref="ArugmentException">Thrown when value is not in range 0-180 degrees</exception>
+		/// <exception cref="ArgumentException">Thrown when value is not in range 0-180 degrees</exception>
 		public double Inclination
         {
             get => _inclination;
