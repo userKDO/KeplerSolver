@@ -43,7 +43,7 @@ docfx docfx.json --serve
 # Opens http://localhost:8080 with full documentation
 ```
 ## Quickstart
-```bash
+```csharp
 // Create a satellite
 var satellite = new Satellite 
 {
