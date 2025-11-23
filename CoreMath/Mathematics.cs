@@ -210,7 +210,7 @@ namespace SatelliteMath
         /// </summary>
         /// <param name="eccentricAnomaly">Eccentric anomaly in degrees (0-360) - auxiliary angle</param>
         /// <param name="eccentricity">Orbital eccentricity (0-1)</param>
-        /// <remarks>Requires e < 1 (does not work for parabolic orbits)</remarks>
+        /// <remarks>Requires e lower than 1 (does not work for parabolic orbits)</remarks>
         /// <returns>Returns the True Anomaly in degrees</returns>        
         /// <exception cref="ArgumentException">Parabolic orbits not supported</exception>
         public static double TrueAnomalyFromEccentric(double eccentricAnomaly, double eccentricity) // θ = 2 * atan( √((1+e)/(1-e)) * tan(E/2) )

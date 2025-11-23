@@ -6,6 +6,10 @@
 # dotenv files
 .env
 
+#DocFX
+docs/_site/
+docs/api/
+
 # User-specific files
 *.rsuser
 *.suo

@@ -28,3 +28,4 @@ c:\GitRepos\KeplerSolver\obj\Debug\net9.0\refint\KeplerSolver.dll
 c:\GitRepos\KeplerSolver\obj\Debug\net9.0\KeplerSolver.pdb
 C:\GitRepos\KeplerSolver\obj\Debug\net9.0\KeplerSolver.genruntimeconfig.cache
 C:\GitRepos\KeplerSolver\obj\Debug\net9.0\ref\KeplerSolver.dll
+C:\GitRepos\KeplerSolver\bin\Debug\net9.0\KeplerSolver.xml

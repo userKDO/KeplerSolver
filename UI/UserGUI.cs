@@ -6,8 +6,20 @@ using System.Security.AccessControl;
 
 namespace GUI
 {
+	/// <summary>
+    /// Console user interface for KeplerSolver orbital mechanics library
+    /// </summary>
+	/// <remarks>
+	/// Provides interactive menu for satellite creation, orbital calculations, and database management
+	/// </remarks>
 	public static class UserGUI
 	{
+		/// <summary>
+        /// Main entry point for the console application
+        /// </summary>
+		/// <remarks>
+		/// Displays interactive menu with options for orbital calculations and satellite management
+		/// </remarks>
 		public static void MainMenu()
 		{
 			while (true)
