@@ -1,4 +1,5 @@
 using PublicVariables;
+using System.Numerics;
 
 namespace SatelliteMath
 {
@@ -285,5 +286,14 @@ namespace SatelliteMath
             double r_apo = apoapsisAltitude + planetRadius;    // radius apocenter
             return (r_apo - r_peri) / (r_apo + r_peri);
         }
+    }
+
+    /// <summary>
+    /// Class that counts evolution of orbit in real time
+    /// </summary>
+	/// <remarks>calculates position and other stuff after N seconds</remarks>
+	public class OrbitalPropagator
+    {
+        
     }
 }
