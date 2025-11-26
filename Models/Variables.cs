@@ -1,3 +1,5 @@
+using System.Numerics;
+
 namespace PublicVariables
 {
 	/// <summary>
@@ -199,5 +201,44 @@ namespace PublicVariables
 		Polar,
 		/// <summary>Molniya highly elliptical orbit</summary>
 		Molniya
+    }
+
+	/// <summary>
+    /// Structure for all orbital states
+    /// </summary>
+	public struct OrbitalState
+    {
+		/// <summary>Vector for position</summary>
+		/// <value>Meters</value>
+        public Vector3 Position;
+
+		/// <summary>Vector for velocity</summary>
+		/// <value>Meters per second</value>
+		public Vector3 Velocity;
+
+		/// <summary>True anomaly in OrbitalState</summary>
+		/// <value>Degrees</value>
+		public double TrueAnomaly;
+
+		/// <summary>Time in OrbitalState</summary>
+		/// <value>Seconds</value>
+		public double Time;
+
+		//Constructors
+
+		/// <summary>
+        /// Constructor for OrbitalState class
+		/// </summary>
+        /// <param name="position"></param>
+        /// <param name="velocity"></param>
+        /// <param name="trueAnomaly"></param>
+        /// <param name="time"></param>
+		public OrbitalState(Vector3 position, Vector3 velocity, double trueAnomaly, double time)
+        {
+            Position = position;
+			Velocity = velocity;
+			TrueAnomaly = trueAnomaly;
+			Time = time;
+        }
     }
 }
