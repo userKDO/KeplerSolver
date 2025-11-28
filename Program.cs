@@ -1,9 +1,4 @@
-﻿using System;
-using PublicVariables;
-using SatelliteMath;
-using GUI;
-
-namespace MainNameSpace
+﻿namespace MainNameSpace
 {
     class Program
     {
