@@ -1,8 +1,6 @@
-using System;
 using PublicVariables;
 using SatelliteMath;
 using DataBases;
-using System.Security.AccessControl;
 
 namespace GUI
 {

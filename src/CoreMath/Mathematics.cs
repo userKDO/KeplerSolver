@@ -1,5 +1,4 @@
 using PublicVariables;
-using System.Numerics;
 
 namespace SatelliteMath
 {
