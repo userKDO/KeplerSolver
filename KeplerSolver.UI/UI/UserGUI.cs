@@ -12,6 +12,7 @@ namespace GUI
 	/// </remarks>
 	public static class UserGUI
 	{
+		private static int page = 1;
 		/// <summary>
         /// Main entry point for the console application
         /// </summary>
@@ -22,47 +23,76 @@ namespace GUI
 		{
 			while (true)
 			{
-				Console.WriteLine("===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
-				Console.WriteLine("7.Delete satellite");
-				Console.WriteLine("6.List all satellites");
-				Console.WriteLine("5.Select existing satellite");
-				Console.WriteLine("4.Create new satellite");
-				Console.WriteLine("3.Calculate the angular velocity");
-				Console.WriteLine("2.Calculate the orbital velocity");
-				Console.WriteLine("1.Calculate the orbital period via height");
-				Console.WriteLine("0.exit");
-				Console.Write("Your choice: ");
-
-				var choice = Console.ReadLine();
-				switch (choice)
+				if (page == 1)
 				{
-					case "0":
-						return;
-					case "1":
-						CalculOrbPeriodViaHeightGUI();
-						break;
-					case "2":
-						CalculateOrbVelocity();
-						break;
-					case "3":
-						CalculateAngularVelocity();
-						break;
-					case "4":
-						GUI_CreateSatellite();
-						break;
-					case "5":
-						GUI_GetSatellite();
-						break;
-					case "6":
-						GUI_GetAllSatellites();
-						break;
-					case "7":
-						GUI_DeleteSatellite();
-						break;
-					default:
-						Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");
-						break;
+					Console.WriteLine("===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
+					Console.WriteLine("7.Delete satellite");
+					Console.WriteLine("6.List all satellites");
+					Console.WriteLine("5.Select existing satellite");
+					Console.WriteLine("4.Create new satellite");
+					Console.WriteLine("3.Calculate the angular velocity");
+					Console.WriteLine("2.Calculate the orbital velocity");
+					Console.WriteLine("1.Calculate the orbital period via height");
+					Console.WriteLine("0.exit");
+					Console.WriteLine($"< page -1; {page} ;page +1 >");
+					Console.Write("Your choice: ");
+
+					var choice = Console.ReadLine();
+					switch (choice)
+					{
+						case "<":
+							page = Math.Max(1, page - 1);
+							break;
+						case ">":
+							page++;
+							break;
+						case "0":
+							return;
+						case "1":
+							CalculOrbPeriodViaHeightGUI();
+							break;
+						case "2":
+							CalculateOrbVelocity();
+							break;
+						case "3":
+							CalculateAngularVelocity();
+							break;
+						case "4":
+							GUI_CreateSatellite();
+							break;
+						case "5":
+							GUI_GetSatellite();
+							break;
+						case "6":
+							GUI_GetAllSatellites();
+							break;
+						case "7":
+							GUI_DeleteSatellite();
+							break;
+						default:
+							Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");
+							break;
+					}
 				}
+				if (page == 2)
+                {
+                    Console.WriteLine("Empty");
+					Console.WriteLine("0. exit");
+					Console.WriteLine($"< page -1; {page} ;page +1 >");
+
+					var choice = Console.ReadLine();
+					switch (choice)
+                    {
+						case "0":
+							return;
+                        case "<":
+							page = Math.Max(1, page - 1);
+							break;
+						case ">":
+							page++;
+							break;
+                    }
+                }
 			}
 		}
 		// Orbital stuff

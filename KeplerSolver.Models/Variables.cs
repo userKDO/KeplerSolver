@@ -183,6 +183,72 @@ namespace PublicVariables
         /// </summary>
 		/// <value>Circular, Elliptical, Geostationary, Polar, Molniya</value>
 		public OrbitType OrbitType { get; set; }
+
+		/// <summary>
+        /// Constructor for Satellite object. Very useful for test in my opinion
+        /// </summary>
+		/// <remarks>You can use this constructor for your own testing if you want to add some features yourself.</remarks>
+		/// <example>
+		/// <code>
+		/// // Create a circular orbit satellite for your test
+		/// var satellite = new Satellite(
+		///     name: "ISS",
+		///     altitude: 400,
+		///     inclination: 51.6,
+		///     eccentricity: 0,
+		///     currentAnomaly: 0,
+		///     orbitType: OrbitType.Circular
+		/// );
+		/// </code>
+		/// </example>
+        /// <param name="name"></param>
+        /// <param name="altitude"></param>
+        /// <param name="inclination"></param>
+        /// <param name="eccentricity"></param>
+        /// <param name="currentAnomaly"></param>
+        /// <param name="orbitType"></param>
+        /// <param name="semiMajorAxis"></param>
+        /// <param name="argumentOfPeriapsis"></param>
+        /// <param name="orbitalPeriod"></param>
+        /// <param name="orbitalVelocity"></param>
+        /// <param name="angularVelocity"></param>
+		
+		public Satellite(string? name, double altitude, double inclination, 
+                double eccentricity, double currentAnomaly, OrbitType orbitType,
+                double semiMajorAxis = 0, double argumentOfPeriapsis = 0,
+                double orbitalPeriod = 0, double orbitalVelocity = 0, 
+                double angularVelocity = 0)
+        {
+            Name = name;
+			Altitude = altitude;
+			Inclination = inclination;
+			Eccentricity = eccentricity;
+			CurrentAnomaly = currentAnomaly;
+			OrbitType = orbitType;
+			SemiMajorAxis = semiMajorAxis;
+			ArgumentOfPeriapsis = argumentOfPeriapsis;
+			OrbitalPeriod = orbitalPeriod;
+			OrbitalVelocity = orbitalVelocity;
+			AngularVelocity = angularVelocity;
+        }
+
+		/// <summary>
+        /// Empty constructor of Satellite object to solve some problems in UserGUI
+        /// </summary>
+		/// <remarks>With this counstructor you can create empty objects and fill'em step by step</remarks>
+		/// <example>
+		/// <code>
+		/// // Create empty satellite and fill properties gradually
+		/// var satellite = new Satellite();
+		/// satellite.Name = "Hubble";
+		/// satellite.Altitude = 547;
+		/// satellite.Inclination = 28.5;
+		/// </code>
+		/// </example>
+		public Satellite()
+        {
+            
+        }
 	}
 
 	/// <summary>
