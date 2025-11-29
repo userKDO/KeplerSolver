@@ -2,7 +2,7 @@ using PublicVariables;
 
 namespace SatelliteMath
 {
-    class OrbitalCalculator
+    public class OrbitalCalculator
     {
         /// <summary>
         /// Calculates orbital period using Kepler's third law: T = 2π * √(a³ / μ)
