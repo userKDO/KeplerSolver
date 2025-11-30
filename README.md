@@ -27,7 +27,6 @@ cd KeplerSolver
 dotnet build
 
 # Generate and serve documentation
-mkdir docs
 cd docs
 docfx init
 
@@ -55,3 +54,21 @@ var satellite = new Satellite
 // Calculate orbital period
 var period = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, Planet.Earth);
 ```
+
+## GUI start
+```bash
+## in the reopository folder:
+cd KeplerSolver
+dotnet run
+## Then you will see main program GUI
+```
+
+## Tests
+```bash
+##  In the Repo directory:
+cd KeplerSolver.Tests
+dotnet run
+## Then you will see GUI for tests
+```
+You can add your own tests in mathTests.cs if you wanna tests your new methods or if you think that my tests are shit
+If you think that my tests are shit, pls send me your test I'll be very glad to check and upgrade my library
