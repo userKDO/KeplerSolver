@@ -75,5 +75,54 @@ namespace MathTests
                 Console.WriteLine($"4th test: Passed({ex.Message})");
             }
         }
+
+        public static void TestOrbitalVelocity()
+        {
+            Console.WriteLine("Testing Orbital Velocity:");
+
+            try
+            {
+                var satellite = new Satellite("TestCircular", 400, 51.6, 0, 0, OrbitType.Circular);
+                var velocity = OrbitalCalculator.OrbitalVelocity(satellite, PlanetVariables.Earth());
+                var expectedVelocity = PlanetVariables.Earth().Radius + satellite.Altitude;
+                if (velocity <= expectedVelocity + 50 || velocity >= expectedVelocity - 50)
+                {
+                    Console.WriteLine($"1st test: Passed(velocity = {velocity}, expectedVelocity = {expectedVelocity} +- 50)");
+                }
+                else
+                {
+                    Console.WriteLine($"1st test: Failed(velocity = {velocity}, expectedVelocity = {expectedVelocity} +- 50)");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"1st test: Failed({ex.Message})");
+            }
+
+            /*try
+            {
+                // Orbit with apoapsis 1000.0 kilometers and periapsis 400.0 kilometers
+                double apoapsisAlt = 1000.0; // kilometers
+                double periapsisAlt = 400.0; //kilometers
+                // calculates orbit parameters
+                double a = OrbitalCalculator.CalculateSemiMajorAxis(periapsisAlt, apoapsisAlt, PlanetVariables.Earth().Radius);
+                double e = OrbitalCalculator.CalculateEccentricity(periapsisAlt, apoapsisAlt, PlanetVariables.Earth().Radius);
+                var satellite = new Satellite("TestEllipticalOrbit", 0, 51.6, e, 0, OrbitType.Elliptical, a);
+                var PeriapsisVelocity = OrbitalCalculator.OrbitalVelocity(satellite, PlanetVariables.Earth(), 0);
+                var velocityApoapsis = OrbitalCalculator.OrbitalVelocity(satellite, PlanetVariables.Earth(),0);
+
+                var ExpectedVelocityPeriapsis = ;
+                var ExpectedVelocityApoapsis = ;
+
+                if ()
+                {
+                    
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"2nd test: Failed({ex.Message})");
+            }*/
+        }
     }
 }

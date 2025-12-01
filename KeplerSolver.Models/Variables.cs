@@ -212,12 +212,11 @@ namespace PublicVariables
         /// <param name="orbitalPeriod"></param>
         /// <param name="orbitalVelocity"></param>
         /// <param name="angularVelocity"></param>
-		
 		public Satellite(string? name, double altitude, double inclination, 
                 double eccentricity, double currentAnomaly, OrbitType orbitType,
                 double semiMajorAxis = 0, double argumentOfPeriapsis = 0,
                 double orbitalPeriod = 0, double orbitalVelocity = 0, 
-                double angularVelocity = 0)
+                double angularVelocity = 0) // Ayo, thats looks like shit
         {
             Name = name;
 			Altitude = altitude;
