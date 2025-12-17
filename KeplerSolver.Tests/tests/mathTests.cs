@@ -149,6 +149,16 @@ namespace MathTests
             {
                 Console.WriteLine($"2nd test: Failed({ex.Message})");
             }
+            try
+            {
+                var satellite = new Satellite("TestLessThanZeroAltitude", -1, 51.6, 0, 0, OrbitType.Circular); 
+                var velocity = OrbitalCalculator.OrbitalVelocity(satellite, PlanetVariables.Earth());
+                Console.WriteLine($"3rd test: Failed(velocity: {velocity}. How?)");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"3rd test: Passed({ex.Message})");
+            }
         }
     }
 }
