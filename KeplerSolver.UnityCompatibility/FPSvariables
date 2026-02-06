@@ -1,0 +1,29 @@
+using System.Numerics;
+
+namespace SimulationTimeVariables
+{
+    /// <summary>
+    /// Class containing GameTime
+    /// </summary>
+    public class SimulationTime
+    {
+        private double _simTime;
+
+        /// <summary>
+        /// Just the time (for library)
+        /// </summary>
+        public double simTime
+        {
+            get => _simTime;
+            private set
+            {
+                if (value <= 0)
+                    throw new ArgumentException("Time cannot be negative");
+
+                _simTime = value;
+            }
+        } // seconds
+
+        
+    }
+}
