@@ -5,9 +5,9 @@ namespace GameTime
 {
     public class Time
     {
-        public static void ChangeTime(double amount)
+        public static void TimeIncrease(double amount)
         {
-            
+            SimTime += amount;
         }
     }
 }

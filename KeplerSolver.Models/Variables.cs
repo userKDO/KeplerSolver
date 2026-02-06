@@ -64,7 +64,7 @@ namespace PublicVariables
 			GravitationalParameter = gravParam;
 		}
 
-		// Методы пресеты
+		// Methods-presets
 
 		/// <summary>
         /// Preset for the planet Earth
