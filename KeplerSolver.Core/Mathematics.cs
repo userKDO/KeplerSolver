@@ -174,7 +174,7 @@ namespace SatelliteMath
         {
             if (Math.Abs(eccentricity) < 1e-10)
             {
-                return meanAnomaly; // Для круговой орбиты E = M
+                return meanAnomaly; // For circular orbit - E = M
             }
             
             if (eccentricity >= 1)
@@ -188,7 +188,7 @@ namespace SatelliteMath
             if (M < 0) M += 2 * Math.PI;    //  M in range [0, 2π)
             
             double E = M;
-            for (int i = 0; i < 50; i++) // i < 50, where 50 is a count of iterations
+            for (int i = 0; i < 50; i++) // i < 50, where 50 is a count of iterations /////////////////////////////////////////////////////////////////////////////////
             {
                 double f = E - eccentricity * Math.Sin(E) - M;
                 double fPrime = 1 - eccentricity * Math.Cos(E);
