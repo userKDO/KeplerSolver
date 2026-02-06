@@ -7,23 +7,21 @@ namespace SimulationTimeVariables
     /// </summary>
     public class SimulationTime
     {
-        private double _simTime;
+        private double simTime;
 
         /// <summary>
         /// Just the time (for library)
         /// </summary>
-        public double simTime
+        public double SimTime
         {
-            get => _simTime;
+            get => simTime;
             private set
             {
-                if (value <= 0)
-                    throw new ArgumentException("Time cannot be negative");
+                if (value < 0)
+                    throw new ArgumentOutOfRangeException($"Time cannot be negative: {nameof(value)} = {value}");
 
-                _simTime = value;
+                simTime = value;
             }
         } // seconds
-
-        
     }
 }
