@@ -232,7 +232,7 @@ namespace SatelliteMath
         }
 
         /// <summary>
-        /// Calculates the coordinates of the satellite in the orbital plane. 
+        /// Calculates the coordinates of the satellite in the orbital plane.
         /// </summary>
         /// <remarks>
         /// Formulas: 
