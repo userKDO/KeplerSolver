@@ -293,6 +293,9 @@ namespace SatelliteMath
 	/// <remarks>calculates position and other stuff after N seconds</remarks>
 	public class OrbitalPropagator
     {
-        
+        public static void a()
+        {
+            
+        }
     }
 }
