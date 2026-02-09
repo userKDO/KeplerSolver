@@ -5,11 +5,10 @@ namespace VectorStructs
 {
 	public class StateStructs
 	{
-		public struct Vector3SatellitesState
+		struct State
 		{
-			public Vector3 Position = new Vector3(x, y, z);
-			public Vector3 Velocity = new Vector3(x, y ,z);
-			
+			public Vector3d r; // position
+			public Vector3d v; // velocity
 		}
 	}
 }

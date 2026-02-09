@@ -1,5 +1,6 @@
 using System;
 using SimulationTimeVariables;
+using VectorStructs;
 
 namespace GameTime
 {
@@ -9,5 +10,12 @@ namespace GameTime
         {
             SimTime += amount;
         }
+
+		public static void Step(ref State s, double dt, double mu)
+		{
+			Vector3d a = -mu * s.r / Math.Pow(s.r.Length(), 3);
+			s.v += a * dt;
+			s.r += s.v * dt;
+		}
     }
 }

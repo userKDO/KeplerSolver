@@ -48,12 +48,12 @@ namespace MathStructs
 			public static double Dot(Vector3d a, Vector3d b)
 				=> a.X*b.X + a.Y*b.Y + a.Z*b.Z;
 
-			public static double Cross(Vector3d a, Vector3d b)
-				=> new{
+			public static Vector3d Cross(Vector3d a, Vector3d b)
+				=> new Vector3d(
 					a.Y*b.Z - a.Z*b.Y,
 					a.Z*b.X - a.X*b.Z,
 					a.X*b.Y - a.Y*b.X
-				};
+					);
 		}
 	}
 }
