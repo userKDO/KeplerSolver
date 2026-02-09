@@ -39,22 +39,21 @@ namespace MathStructs
 			public static Vector3d operator -(Vector3d a, Vector3d b)
 				=> new(a.X-b.X, a.Y-b.Y, a.Z-b.Z);
 
-			public static Vector3d operator *(Vector3d a, Vector3d b)
-				=> new(a.X*b.X, a.Y*b.Y, a.Z*b.Z);
+			public static Vector3d operator *(Vector3d v, double k)
+				=> new(v.X*k, v.Y*k, v.Z*k);
 
-			public static Vector3d operator /(Vector3d a, Vector3d b)
-				=> new(a.X*b.X, a.Y*b.Y, a.Z*b.Z);
+			public static Vector3d operator /(Vector3d v, double k)
+				=> new(v.X/k, v.Y/k, v.Z/k);
 
-			public static Vector3d operator Dot(Vector3d a, Vector3d b)
-				=> new(a.X*b.X + a.Y*b.Y + a.Z*b.Z);
+			public static double Dot(Vector3d a, Vector3d b)
+				=> a.X*b.X + a.Y*b.Y + a.Z*b.Z;
 
-			public static Vector3d operator Cross(Vector3d a, Vector3d b)
-				return new Vector3d{
-					a.Y*b.Z - a.Z*b.Y
-					a.Z*b.X - a.X*b.Z
+			public static double Cross(Vector3d a, Vector3d b)
+				=> new{
+					a.Y*b.Z - a.Z*b.Y,
+					a.Z*b.X - a.X*b.Z,
 					a.X*b.Y - a.Y*b.X
 				};
 		}
 	}
-
 }
