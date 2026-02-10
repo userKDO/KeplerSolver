@@ -1,6 +1,7 @@
 using PublicVariables;
 using SatelliteMath;
 using DataBases;
+using logger;
 
 namespace GUI
 {
@@ -20,13 +21,14 @@ namespace GUI
 		/// <remarks>
 		/// Displays interactive menu with options for orbital calculations and satellite management
 		/// </remarks>
-		public static void MainMenu()
+		public static async Task MainMenu()
 		{
 			while (true)
 			{
 				if (page == 1)
 				{
 					Console.WriteLine("===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
+					Console.WriteLine("9.Read logs");
 					Console.WriteLine("7.Delete satellite");
 					Console.WriteLine("6.List all satellites");
 					Console.WriteLine("5.Select existing satellite");
@@ -69,6 +71,11 @@ namespace GUI
 							break;
 						case "7":
 							GUI_DeleteSatellite();
+							break;
+
+						case "9":
+							var logger = new SimpleLogger();
+							await logger.LogRead();
 							break;
 						default:
 							Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");

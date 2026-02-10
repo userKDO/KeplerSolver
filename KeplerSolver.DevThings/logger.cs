@@ -33,15 +33,42 @@ namespace logger
 		}
 	}
 
+	public class INFO
+	{
+		public string? log_msg;
+		public INFO(string? Log_msg)
+		{
+			log_msg = Log_msg;
+		}
+	}
+
 	public class SimpleLogger
 	{
+		private async Task LogInfoInternal(string log_msg)
+		{
+			try
+			{
+				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
+				{
+					INFO log = new INFO($"[INFO] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
+					await JsonSerializer.SerializeAsync<INFO>(fs, log);
+					await fs.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
+					Console.WriteLine("Data has been saved to file");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"An error occured: {ex.Message}");
+			}
+		}
+
 		private async Task LogErrorInternal(string log_msg)
 		{
 			try
 			{
 				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
 				{
-					ERROR log = new ERROR($"[ERROR] {log_msg}");
+					ERROR log = new ERROR($"[ERROR] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
 					await JsonSerializer.SerializeAsync<ERROR>(fs, log);
 					await fs.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
 					Console.WriteLine("Data has been saved to file");
@@ -59,7 +86,7 @@ namespace logger
 			{
 				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
 				{
-					WARNING log = new WARNING($"[WARNING] {log_msg}");
+					WARNING log = new WARNING($"[WARNING] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
 					await JsonSerializer.SerializeAsync<WARNING>(fs, log);
 					await fs.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
 					Console.WriteLine("Data has been saved to file");
@@ -122,6 +149,11 @@ namespace logger
 			{
 				Console.WriteLine($"An error occured: {ex.Message}");
 			}
+		}
+
+		public async Task LogInfo(string message)
+		{
+			await LogInfoInternal(message);
 		}
 
 		public async Task LogError(string message)
