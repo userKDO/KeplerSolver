@@ -142,7 +142,7 @@ namespace logger
 		public async Task LogRead()
 		{
 			await ReadLogs();
-		}
+		} // oasdpaoskpf
 
 	}
 }
