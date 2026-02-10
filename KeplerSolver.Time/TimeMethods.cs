@@ -11,11 +11,11 @@ namespace GameTime
             SimTime += amount;
         }
 
-		public static void Step(ref State s, double dt, double mu)
+		public static void Step(ref State s, double dt, double mu) // mu is a grav param, dt is a delta time, s is a object for State
 		{
-			Vector3d a = -mu * s.r / Math.Pow(s.r.Length(), 3);
-			s.v += a * dt;
-			s.r += s.v * dt;
+			Vector3d a = -mu * s.r / Math.Pow(s.r.Length(), 3); // acceleration
+			s.v += a * dt; // updated speed
+			s.r += s.v * dt; // updated position
 		}
     }
 }

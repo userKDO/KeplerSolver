@@ -12,6 +12,7 @@ namespace GUI
 	/// </remarks>
 	public static class UserGUI
 	{
+		private static int ii;
 		private static int page = 1;
 		/// <summary>
         /// Main entry point for the console application
@@ -76,13 +77,17 @@ namespace GUI
 				}
 				if (page == 2)
                 {
-                    Console.WriteLine("Empty");
-					Console.WriteLine("0. exit");
+                    Console.WriteLine("Real-time page");
+					Console.WriteLine("1.Execute smthn via Step");
+					Console.WriteLine("0.exit");
 					Console.WriteLine($"< page -1; {page} ;page +1 >");
 
 					var choice = Console.ReadLine();
 					switch (choice)
                     {
+						case "1":
+							StepAsk();
+							break;
 						case "0":
 							return;
                         case "<":
@@ -537,5 +542,34 @@ namespace GUI
             Console.WriteLine("Please enter Argument of periapsis (degrees): ");
 			return SafeParseDouble(Console.ReadLine());
         }
+
+		static int iAsk()
+		{
+			Console.Write("Enter how many steps will program use to calc sim: ");
+			return int.Parse(Console.ReadLine());
+		}
+
+		static void Step_CalculateOrbVelocity()
+		{
+			ii = iAsk();
+		}
+
+		static void StepAsk()
+		{
+			Console.WriteLine("Which one method u wanna execute via step?");
+			Console.WriteLine("1.OrbitalVelocity");
+
+			Console.Write("Enter your choice: ");
+			var choice = Console.ReadLine();
+
+			switch (choice)
+			{
+				case "1":
+					ii = iAsk();
+					CalculateOrbVelocity();
+					
+					return;
+			}
+		}
 	}
 }
