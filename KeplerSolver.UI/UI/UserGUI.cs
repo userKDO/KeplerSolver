@@ -1,6 +1,7 @@
 using PublicVariables;
 using SatelliteMath;
 using DataBases;
+using logger;
 
 namespace GUI
 {
@@ -12,6 +13,7 @@ namespace GUI
 	/// </remarks>
 	public static class UserGUI
 	{
+		private static int ii;
 		private static int page = 1;
 		/// <summary>
         /// Main entry point for the console application
@@ -19,13 +21,14 @@ namespace GUI
 		/// <remarks>
 		/// Displays interactive menu with options for orbital calculations and satellite management
 		/// </remarks>
-		public static void MainMenu()
+		public static async Task MainMenu()
 		{
 			while (true)
 			{
 				if (page == 1)
 				{
 					Console.WriteLine("===Welcome to my 'program' KeplerSolver!===\nSelect a function by writing its number");
+					Console.WriteLine("9.Read logs");
 					Console.WriteLine("7.Delete satellite");
 					Console.WriteLine("6.List all satellites");
 					Console.WriteLine("5.Select existing satellite");
@@ -69,6 +72,11 @@ namespace GUI
 						case "7":
 							GUI_DeleteSatellite();
 							break;
+
+						case "9":
+							var logger = new SimpleLogger();
+							await logger.LogRead();
+							break;
 						default:
 							Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");
 							break;
@@ -76,13 +84,17 @@ namespace GUI
 				}
 				if (page == 2)
                 {
-                    Console.WriteLine("Empty");
-					Console.WriteLine("0. exit");
+                    Console.WriteLine("Real-time page");
+					Console.WriteLine("1.Execute smthn via Step");
+					Console.WriteLine("0.exit");
 					Console.WriteLine($"< page -1; {page} ;page +1 >");
 
 					var choice = Console.ReadLine();
 					switch (choice)
                     {
+						case "1":
+							StepAsk();
+							break;
 						case "0":
 							return;
                         case "<":
@@ -537,5 +549,34 @@ namespace GUI
             Console.WriteLine("Please enter Argument of periapsis (degrees): ");
 			return SafeParseDouble(Console.ReadLine());
         }
+
+		static int iAsk()
+		{
+			Console.Write("Enter how many steps will program use to calc sim: ");
+			return int.Parse(Console.ReadLine());
+		}
+
+		static void Step_CalculateOrbVelocity()
+		{
+			ii = iAsk();
+		}
+
+		static void StepAsk()
+		{
+			Console.WriteLine("Which one method u wanna execute via step?");
+			Console.WriteLine("1.OrbitalVelocity");
+
+			Console.Write("Enter your choice: ");
+			var choice = Console.ReadLine();
+
+			switch (choice)
+			{
+				case "1":
+					ii = iAsk();
+					CalculateOrbVelocity();
+					
+					return;
+			}
+		}
 	}
 }

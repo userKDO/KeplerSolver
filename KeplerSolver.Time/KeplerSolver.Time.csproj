@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\KeplerSolver.Models\KeplerSolver.Models.csproj" />
+	  <ProjectReference Include="..\KeplerSolver.Models\KeplerSolver.Models.csproj" />
+	  <ProjectReference Include="..\KeplerSolver.Vectors\KeplerSolver.Vectors.csproj" />
+	  <ProjectReference Include= "..\KeplerSolver.Core\KeplerSolver.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
