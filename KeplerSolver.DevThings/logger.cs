@@ -5,7 +5,7 @@ namespace logger
 {
 	public class ERROR
 	{
-		public string? log_msg;
+		public string? log_msg { get; set; }
 
 		public ERROR(string? Log_msg)
 		{
@@ -15,7 +15,7 @@ namespace logger
 
 	public class WARNING
 	{
-		public string? log_msg;
+		public string? log_msg { get; set; }
 
 		public WARNING(string? Log_msg)
 		{
@@ -25,9 +25,9 @@ namespace logger
 
 	public class DOUBLE_DATA
 	{
-		public double data;
+		public string? data { get; set; }
 
-		public DOUBLE_DATA(double Data)
+		public DOUBLE_DATA(string? Data)
 		{
 			data = Data;
 		}
@@ -35,7 +35,7 @@ namespace logger
 
 	public class INFO
 	{
-		public string? log_msg;
+		public string? log_msg { get; set; }
 		public INFO(string? Log_msg)
 		{
 			log_msg = Log_msg;
@@ -48,7 +48,7 @@ namespace logger
 		{
 			try
 			{
-				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
 				{
 					INFO log = new INFO($"[INFO] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
 					await JsonSerializer.SerializeAsync<INFO>(fs, log);
@@ -66,7 +66,7 @@ namespace logger
 		{
 			try
 			{
-				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
 				{
 					ERROR log = new ERROR($"[ERROR] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
 					await JsonSerializer.SerializeAsync<ERROR>(fs, log);
@@ -84,7 +84,7 @@ namespace logger
 		{
 			try
 			{
-				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
 				{
 					WARNING log = new WARNING($"[WARNING] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
 					await JsonSerializer.SerializeAsync<WARNING>(fs, log);
@@ -98,13 +98,13 @@ namespace logger
 			}
 		}
 
-		private async Task LogDoubleDataInternal(double data) // logger for data in double
+		private async Task LogDataInternal(string data) // logger for data in double
 		{
 			try
 			{
-				using (FileStream fs = new FileStream("logs.json", FileMode.Append))
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
 				{
-					DOUBLE_DATA log = new DOUBLE_DATA(data);
+					DOUBLE_DATA log = new DOUBLE_DATA($"[DATA] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {data}");
 					await JsonSerializer.SerializeAsync<DOUBLE_DATA>(fs, log);
 					await fs.WriteAsync(Encoding.UTF8.GetBytes(Environment.NewLine));
 					Console.WriteLine("Data has been saved to file");
@@ -120,7 +120,7 @@ namespace logger
 		{
 			try
 			{
-				using (FileStream fs = new FileStream("logs.json", FileMode.OpenOrCreate))
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.OpenOrCreate))
 				{
 					if (fs.Length > 0)
 					{
@@ -166,9 +166,9 @@ namespace logger
 			await LogWarningInternal(message);
 		}
 
-		public async Task LogData(double message)
+		public async Task LogData(string message)
 		{
-			await LogDoubleDataInternal(message);
+			await LogDataInternal(message);
 		}
 
 		public async Task LogRead()

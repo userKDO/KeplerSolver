@@ -109,32 +109,40 @@ namespace GUI
 		}
 		// Orbital stuff
 
-		static void CalculOrbPeriodViaHeightGUI()
+		static async Task CalculOrbPeriodViaHeightGUI()
 		{
+			var logger = new SimpleLogger();
+
 			Satellite? satellite = ChooseSatellite();
 			if (satellite == null)
             {
                 Console.WriteLine("No satellite selected");
+				await logger.LogError("No satellite selected");
 				return;
             }
 
 			 if (satellite.OrbitType == OrbitType.Circular && satellite.Altitude == 0)
 			{
 				Console.WriteLine("Satellite altitude not set.");
+				await logger.LogError($"Satellite altitude not set: {satellite.Altitude}");
 				satellite.Altitude = AskAltitude();
 			}
 			
 			if (satellite.OrbitType == OrbitType.Circular && satellite.Inclination == 0 )
 			{
 				Console.WriteLine("Satellite inclination not set.");  
+				await logger.LogError($"Satellite inclination not set: {satellite.Inclination}");
 				satellite.Inclination = AskInclination();
 			}
 
 			PlanetVariables planet = AskPlanet();
+			await logger.LogInfo($"Planet set: {planet}");
 			double periodSeconds = SatelliteMath.OrbitalCalculator.OrbitalPeriodviaHeight(satellite, planet);
 			satellite.OrbitalPeriod = periodSeconds;
+			await logger.LogData(periodSeconds.ToString());
 			
 			double periodMinutes = periodSeconds / 60;
+			await logger.LogData(periodMinutes.ToString());
 			Console.WriteLine($"Orbital period for {satellite.Name}: {periodMinutes:F2} minutes\n");
 
 			DataBases.SatelliteDataBase.UpdateSatellite(satellite);
