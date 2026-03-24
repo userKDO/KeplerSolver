@@ -10,7 +10,7 @@ C# library for satellite orbit calculations using Keplerian mechanics.
 
 ## Documentation
 
-**Quick reference:** [Documentation.pdf](Documentation.pdf) - API overview
+**Quick reference:** [Documentation.pdf](docs/Documentation.pdf) - API overview
 
 **Full documentation:** To generate complete HTML documentation with search and examples:
 
