@@ -7,9 +7,12 @@ namespace TEST_GUI
             while(true)
             {
                 Console.WriteLine("Welcome to tester mode in my program KeplerSolver");
+                Console.WriteLine("4.Test Polar Orbit");
+                Console.WriteLine("3.Test Equatorial Orbit");
                 Console.WriteLine("2.Test orbital velocity");
                 Console.WriteLine("1.Test orbital period via height calculation");
                 Console.WriteLine("0. exit");
+                Console.Write("Your choice: ");
 
                 var choice = Console.ReadLine();
                 switch(choice)
@@ -22,6 +25,12 @@ namespace TEST_GUI
                     case "2":
                         MathTests.OrbitalTests.TestOrbitalVelocity();
                         break;
+                    case "3":
+						VectorMathTests.VectorTests.EquatorialOrbit_ZeroZ();
+						break;
+					case "4":
+						VectorMathTests.VectorTests.PolarOrbit_RotateToZAxis();
+						break;
                 }
             }
         }
