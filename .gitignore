@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+# .geany
+*.geany
+
 #DocFX
 docs/_site/
 docs/api/
