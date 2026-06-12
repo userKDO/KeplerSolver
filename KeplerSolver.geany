@@ -27,8 +27,11 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=0
-FILE_NAME_0=357;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Core%2FMathStructs%2FMathStructs.cs;0;4
+current_page=2
+FILE_NAME_0=1659;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Core%2FMathStructs%2FMathStructs.cs;0;4
+FILE_NAME_1=0;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Ftests%2FmathTests.cs;0;4
+FILE_NAME_2=1211;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Ftests%2FvectorMathTests.cs;0;4
+FILE_NAME_3=236;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2FGUI%2FTestGUI.cs;0;4
 
 [VTE]
 last_dir=/home/dodik
