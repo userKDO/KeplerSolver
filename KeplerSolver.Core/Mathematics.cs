@@ -188,20 +188,27 @@ namespace SatelliteMath
             M = M % (2 * Math.PI);
             if (M < 0) M += 2 * Math.PI;    //  M in range [0, 2π)
             
-            double E = M;
+            double E;
+            if (eccentricity > 0.8)
+            {
+				E = M + eccentricity * Math.Sin(M) / (1.0 - Math.Sin(M + eccentricity) + Math.Sin(M));
+			}
+			else
+			{
+				E = M;
+			}
             for (int i = 0; i < 50; i++) // i < 50, where 50 is a count of iterations /////////////////////////////////////////////////////////////////////////////////
             {
                 double f = E - eccentricity * Math.Sin(E) - M;
                 double fPrime = 1 - eccentricity * Math.Cos(E);
-                double newE = E - f / fPrime;
-
-                if (Math.Abs(newE - E) < tolerance)
+                double delta = f / fPrime;
+                E -= delta;
+                
+                if (Math.Abs(delta) < tolerance)
                 {
-                    E = newE;
-                    break;
-                }
+					break;
+				}
 
-                E = newE;
             }
             
             return E * 180 / Math.PI;

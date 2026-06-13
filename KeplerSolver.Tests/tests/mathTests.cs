@@ -1,5 +1,6 @@
 using PublicVariables;
 using SatelliteMath;
+using logger;
 
 namespace MathTests
 {
@@ -160,5 +161,68 @@ namespace MathTests
                 Console.WriteLine($"3rd test: Passed({ex.Message})");
             }
         }
+        
+        public static void TestSolveKeplerEquation()
+        {
+			Console.WriteLine("Testing SolveKeplerEquation: ");
+			double tolerance = 0.01;
+			
+			// Test 1. Ellipse
+			try
+			{
+				double meanAnomalyDeg = 60.0;
+				double eccentricity = 0.5;
+				double expectedDeg = 88.6398;
+				double actualDeg = OrbitalCalculator.SolveKeplerEquation(meanAnomalyDeg, eccentricity);
+				
+				if (Math.Abs(actualDeg - expectedDeg) < tolerance)
+				{
+					Console.WriteLine($"1st test: Passed (E: {actualDeg:F4} matches expected {expectedDeg:F4})");
+					var logger = new SimpleLogger();
+					logger.logTestPassed($"1st test: Passed (E: {actualDeg:F4} matches expected {expectedDeg:F4})");
+				}
+				else
+				{
+					Console.WriteLine($"1st test: Failed (expected E: {expectedDeg:F4}, got {actualDeg:F4} )");
+					var logger = new SimpleLogger();
+					logger.logTestFailed($"1st test: Failed (expected E: {expectedDeg:F4}, got {actualDeg:F4})");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"2nd test: Failed ({ex.Message})");
+				var logger = new SimpleLogger();
+				logger.LogError($"2nd test: Failed ({ex.Message})");
+			}
+			
+			//Test 2. Extremal ellipse
+			try
+			{
+				double meanAnomalyDeg = 5.0;
+				double eccentricity = 0.99;
+				double expectedDeg = 45.3610;
+				
+				double actualDeg = OrbitalCalculator.SolveKeplerEquation(meanAnomalyDeg, eccentricity);
+				
+				if (Math.Abs(actualDeg - expectedDeg) < tolerance)
+				{
+					Console.WriteLine($"2nd test: Passed (Extreme orbit E: {actualDeg:F4}, expected E: {expectedDeg:F4})");
+					var logger = new SimpleLogger();
+					logger.logTestPassed($"2nd test: Passed (Extreme orbit E: {actualDeg:F4}, expected E: {expectedDeg:F4})");
+				}
+				else
+				{
+					Console.WriteLine($"2nd test: Failed (expected E: {expectedDeg:F4}, got {actualDeg:F4})");
+					var logger = new SimpleLogger();
+					logger.logTestFailed($"2nd test: Failed (expected E: {expectedDeg:F4}, got {actualDeg:F4})");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"2nd test: Failed ({ex.Message})");
+				var logger = new SimpleLogger();
+				logger.LogError($"2nd test: Failed ({ex.Message})");
+			}
+		}	
     }
 }

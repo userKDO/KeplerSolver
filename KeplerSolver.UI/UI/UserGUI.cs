@@ -6,8 +6,8 @@ using logger;
 namespace GUI
 {
 	/// <summary>
-    /// Console user interface for KeplerSolver orbital mechanics library
-    /// </summary>
+	/// Console user interface for KeplerSolver orbital mechanics library
+	/// </summary>
 	/// <remarks>
 	/// Provides interactive menu for satellite creation, orbital calculations, and database management
 	/// </remarks>
@@ -16,8 +16,8 @@ namespace GUI
 		private static int ii;
 		private static int page = 1;
 		/// <summary>
-        /// Main entry point for the console application
-        /// </summary>
+		/// Main entry point for the console application
+		/// </summary>
 		/// <remarks>
 		/// Displays interactive menu with options for orbital calculations and satellite management
 		/// </remarks>
@@ -83,28 +83,28 @@ namespace GUI
 					}
 				}
 				if (page == 2)
-                {
-                    Console.WriteLine("Real-time page");
+				{
+					Console.WriteLine("Real-time page");
 					Console.WriteLine("1.Execute smthn via Step");
 					Console.WriteLine("0.exit");
 					Console.WriteLine($"< page -1; {page} ;page +1 >");
 
 					var choice = Console.ReadLine();
 					switch (choice)
-                    {
+					{
 						case "1":
 							StepAsk();
 							break;
 						case "0":
 							return;
-                        case "<":
+						case "<":
 							page = Math.Max(1, page - 1);
 							break;
 						case ">":
 							page++;
 							break;
-                    }
-                }
+					}
+				}
 			}
 		}
 		// Orbital stuff
@@ -115,11 +115,11 @@ namespace GUI
 
 			Satellite? satellite = ChooseSatellite();
 			if (satellite == null)
-            {
-                Console.WriteLine("No satellite selected");
+			{
+				Console.WriteLine("No satellite selected");
 				await logger.LogError("No satellite selected");
 				return;
-            }
+			}
 
 			 if (satellite.OrbitType == OrbitType.Circular && satellite.Altitude == 0)
 			{
@@ -153,10 +153,10 @@ namespace GUI
 			Satellite? satellite = ChooseSatellite();
 
 			if (satellite == null)
-            {
-                Console.WriteLine("No satellite selected");
+			{
+				Console.WriteLine("No satellite selected");
 				return;
-            }
+			}
 
 			 if (satellite.OrbitType == OrbitType.Circular && satellite.Altitude == 0)
 			{
@@ -176,13 +176,13 @@ namespace GUI
 		}
 
 		static void CalculateAngularVelocity()
-        {
+		{
 			Satellite? satellite = ChooseSatellite();
 			if (satellite == null)
-            {
-                Console.WriteLine("No satellite selected.");
-        		return;
-            }
+			{
+				Console.WriteLine("No satellite selected.");
+				return;
+			}
 
 			PlanetVariables planet = AskPlanet();
 			Console.WriteLine("Calculate: 1. Mean angular velocity  2. Instantaneous angular velocity");
@@ -209,7 +209,7 @@ namespace GUI
 			
 			satellite.AngularVelocity = angularVelocity;
 			SatelliteDataBase.UpdateSatellite(satellite);
-        }
+		}
 		
 		// Data bases
 
@@ -237,8 +237,8 @@ namespace GUI
 						};
 
 						switch (orbitType)
-                        {
-                            case OrbitType.Circular:
+						{
+							case OrbitType.Circular:
 								satellite.Altitude = AskAltitude();
 								satellite.Inclination = AskInclination();
 								satellite.CurrentAnomaly = AskCurrentAnomaly();
@@ -246,7 +246,7 @@ namespace GUI
 								break;
 							case OrbitType.Elliptical:
 								satellite.Inclination = AskInclination();
-                        		satellite.CurrentAnomaly = AskCurrentAnomaly();
+								satellite.CurrentAnomaly = AskCurrentAnomaly();
 
 								double periapsis = AskPeriapsis();
 								double apoapsis = AskApoapsis();
@@ -265,11 +265,11 @@ namespace GUI
 								satellite.CurrentAnomaly = 0;
 								Console.WriteLine("Geostationary orbit parameters set automatically");
 								break;
-                        }
+						}
 
 						DataBases.SatelliteDataBase.AddSatellite(satellite); // RETURNING OBJECT, NOT A STRING
 						Console.WriteLine($"{UserChosenName} added into a database");
-                		return satellite;
+						return satellite;
 					case "2":
 						break;
 					default:
@@ -343,9 +343,9 @@ namespace GUI
 							Console.WriteLine($"AngularVelocity: {foundSatellite.AngularVelocity}");
 						}
 						else
-                		{
-                    		Console.WriteLine($"Satellite '{UserChosenName}' not found in database");
-                		}
+						{
+							Console.WriteLine($"Satellite '{UserChosenName}' not found in database");
+						}
 						return;
 					case "2":
 						break;
@@ -357,8 +357,8 @@ namespace GUI
 		}
 
 		static Satellite? GUI_WORK_GetSatellite()
-        {
-            while (true)
+		{
+			while (true)
 			{
 				string UserChosenName = AskSatelliteName();
 				Console.WriteLine($"Your name of satellite is: {UserChosenName}, right?");
@@ -374,9 +374,9 @@ namespace GUI
 							return foundSatellite;
 						}
 						else
-                		{
-                    		Console.WriteLine($"Satellite '{UserChosenName}' not found in database");
-                		}
+						{
+							Console.WriteLine($"Satellite '{UserChosenName}' not found in database");
+						}
 						break;
 					case "2":
 						break;
@@ -386,10 +386,10 @@ namespace GUI
 				}
 
 				Console.WriteLine("Continue searching? (1.Yes/2.No)");
-        		var continueChoice = Console.ReadLine();
-        		if (continueChoice == "2") return null;
+				var continueChoice = Console.ReadLine();
+				if (continueChoice == "2") return null;
 			}
-        }
+		}
 
 		static void GUI_DeleteSatellite()
 		{
@@ -484,39 +484,39 @@ namespace GUI
 		}
 
 		static Satellite? ChooseSatellite()
-        {
+		{
 			while (true)
-            {
-                Console.WriteLine("You want to create new satellite or use existing?");
-        		Console.WriteLine("1. Create new satellite");
-        		Console.WriteLine("2. Use existing satellite"); 
-        		Console.WriteLine("3. List all satellites");
-        		Console.WriteLine("0. Back to menu");
+			{
+				Console.WriteLine("You want to create new satellite or use existing?");
+				Console.WriteLine("1. Create new satellite");
+				Console.WriteLine("2. Use existing satellite"); 
+				Console.WriteLine("3. List all satellites");
+				Console.WriteLine("0. Back to menu");
 
 				var choice = Console.ReadLine();
 				switch (choice)
-                {
-                    case "1":
+				{
+					case "1":
 						return GUI_CreateSatellite();
 					case "2":
 						return GUI_WORK_GetSatellite();
 					case "3":
 						GUI_GetAllSatellites();
-                		break;
+						break;
 					case "0":
 						return null;
 					default:
-                		Console.WriteLine($"Invalid choice: {choice}");
-                		break;
-                }
-            }
-        }
+						Console.WriteLine($"Invalid choice: {choice}");
+						break;
+				}
+			}
+		}
 
 		static OrbitType AskOrbitType()
-        {
-            while (true)
-            {
-                Console.WriteLine("Select orbit type:");
+		{
+			while (true)
+			{
+				Console.WriteLine("Select orbit type:");
 				Console.WriteLine("1. Circullar orbit");
 				Console.WriteLine("2. Elliptical orbit");
 				Console.WriteLine("3. Geostationary orbit");
@@ -524,8 +524,8 @@ namespace GUI
 
 				var choice = Console.ReadLine();
 				switch (choice)
-                {
-                    case "1":
+				{
+					case "1":
 						return OrbitType.Circular;
 					case "2":
 						return OrbitType.Elliptical;
@@ -536,27 +536,27 @@ namespace GUI
 					default:
 						Console.WriteLine($"Wrong answer: {choice}");
 						break;
-                }
-            }
-        }
+				}
+			}
+		}
 
 		static double AskPeriapsis()
-        {
-            Console.WriteLine("Please, enter Periapsis altitude (km): ");
+		{
+			Console.WriteLine("Please, enter Periapsis altitude (km): ");
 			return SafeParseDouble(Console.ReadLine());
-        }
+		}
 
 		static double AskApoapsis()
-        {
-            Console.WriteLine("Please, enter Apoapsis altitude (km): ");
+		{
+			Console.WriteLine("Please, enter Apoapsis altitude (km): ");
 			return SafeParseDouble(Console.ReadLine());
-        }
+		}
 
 		static double AskArgumentOfPeriapsis()
-        {
-            Console.WriteLine("Please enter Argument of periapsis (degrees): ");
+		{
+			Console.WriteLine("Please enter Argument of periapsis (degrees): ");
 			return SafeParseDouble(Console.ReadLine());
-        }
+		}
 
 		static int iAsk()
 		{

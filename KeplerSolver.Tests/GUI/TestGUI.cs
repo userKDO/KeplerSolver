@@ -10,6 +10,7 @@ namespace TEST_GUI
             {
                 Console.WriteLine("Welcome to tester mode in my program KeplerSolver");
                 Console.WriteLine("9.Read logs");
+                Console.WriteLine("5.Test Solve Kepler Equation");
                 Console.WriteLine("4.Test Polar Orbit");
                 Console.WriteLine("3.Test Equatorial Orbit");
                 Console.WriteLine("2.Test orbital velocity");
@@ -33,6 +34,9 @@ namespace TEST_GUI
 						break;
 					case "4":
 						VectorMathTests.VectorTests.PolarOrbit_RotateToZAxis();
+						break;
+					case "5":
+						MathTests.OrbitalTests.TestSolveKeplerEquation();
 						break;
 						
 					case "9":

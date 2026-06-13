@@ -27,13 +27,13 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=5
-FILE_NAME_0=1659;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Core%2FMathStructs%2FMathStructs.cs;0;4
-FILE_NAME_1=0;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Ftests%2FmathTests.cs;0;4
-FILE_NAME_2=251;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2FGUI%2FTestGUI.cs;0;4
-FILE_NAME_3=2379;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.UI%2FUI%2FUserGUI.cs;0;4
-FILE_NAME_4=807;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Ftests%2FvectorMathTests.cs;0;4
-FILE_NAME_5=2812;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.DevThings%2Flogger.cs;0;4
+current_page=3
+FILE_NAME_0=2025;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.DevThings%2Flogger.cs;0;4
+FILE_NAME_1=8070;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Ftests%2FmathTests.cs;0;4
+FILE_NAME_2=10519;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Core%2FMathematics.cs;0;4
+FILE_NAME_3=252;C#;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2FGUI%2FTestGUI.cs;0;4
+FILE_NAME_4=0;None;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.App%2Flogs.ndjson;0;4
+FILE_NAME_5=0;None;0;EUTF-8;1;1;0;%2Fhome%2Fdodik%2FgitRepos%2Fcsharp%2FKeplerSolver%2FKeplerSolver.Tests%2Flogs.ndjson;0;4
 
 [VTE]
 last_dir=/home/dodik
