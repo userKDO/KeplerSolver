@@ -1,3 +1,5 @@
+using logger;
+
 namespace TEST_GUI
 {
     public static class TestGUI
@@ -7,6 +9,7 @@ namespace TEST_GUI
             while(true)
             {
                 Console.WriteLine("Welcome to tester mode in my program KeplerSolver");
+                Console.WriteLine("9.Read logs");
                 Console.WriteLine("4.Test Polar Orbit");
                 Console.WriteLine("3.Test Equatorial Orbit");
                 Console.WriteLine("2.Test orbital velocity");
@@ -30,6 +33,11 @@ namespace TEST_GUI
 						break;
 					case "4":
 						VectorMathTests.VectorTests.PolarOrbit_RotateToZAxis();
+						break;
+						
+					case "9":
+						var logger = new SimpleLogger();
+						logger.LogRead();
 						break;
                 }
             }
