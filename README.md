@@ -22,7 +22,7 @@ dotnet tool install -g docfx
 Download from: https://nodejs.org/
 
 # Clone and build the project
-git clone https://github.com/yourusername/KeplerSolver.git
+git clone https://github.com/userKDO/KeplerSolver.git
 cd KeplerSolver
 dotnet build
 
