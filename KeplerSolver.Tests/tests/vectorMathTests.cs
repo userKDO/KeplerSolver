@@ -1,5 +1,6 @@
 using System;
 using static MathStructs.VectorMath;
+using logger;
 
 namespace VectorMathTests
 {
@@ -22,10 +23,14 @@ namespace VectorMathTests
 			if (Math.Abs(result.Z) < Tolerance)
 			{
 				Console.WriteLine($"[PASSED] EquatorialOrbit_ZeroZ(got: {result.Z})");
+				var logger = new SimpleLogger();
+				logger.logTestPassed($"EquatorialOrbit_ZeroZ(got: {result.Z})");
 			}
 			else
 			{
-				Console.WriteLine($"[FAILED] EquatorialOrbit_ZeroZ: Expected Z ~ 0, got {result.Z}");
+				Console.WriteLine($"[FAILED] EquatorialOrbit_ZeroZ: Expected Z ~ 0, got: {result.Z}");
+				var logger = new SimpleLogger();
+				logger.logTestFailed($"EquatorialOrbit_ZeroZ: Expected Z ~ 0, got: {result.Z}");
 			}
 		}
 		
@@ -45,11 +50,15 @@ namespace VectorMathTests
 			
 			if (isXZero && isYZero && isZCorrect)
 			{
-				Console.WriteLine($"[PASSED] PolarOrbit_RotateToZAxis(got: {result.X}, {result.Y}. {result.Z})");
+				Console.WriteLine($"[PASSED] PolarOrbit_RotateToZAxis(got: {result.X}, {result.Y}, {result.Z})");
+				var logger = new SimpleLogger();
+				logger.logTestPassed($"PolarOrbit_RotateToZAxis(got: {result.X}, {result.Y}, {result.Z})");
 			}
 			else
 			{
 				Console.WriteLine($"[FAILED] PolarOrbit_RotateToZAxis: Expected (0,0, {yOrb}), got {result.X}, {result.Y}, {result.Z}");
+				var logger = new SimpleLogger();
+				logger.logTestFailed($"PolarOrbit_RotateToZAxis: Expected (0,0, {yOrb}), got {result.X}, {result.Y}, {result.Z}");
 			}
 		}
 	}

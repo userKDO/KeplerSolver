@@ -41,6 +41,27 @@ namespace logger
 			log_msg = Log_msg;
 		}
 	}
+	
+	
+	public class TESTPASSED
+	{
+		public string? log_msg{ get; set; }
+		
+		public TESTPASSED(string? Log_msg)
+		{
+			log_msg = Log_msg;
+		}
+	}
+	
+	public class TESTFAILED
+	{
+		public string? log_msg{ get; set; }
+		
+		public TESTFAILED(string? Log_msg)
+		{
+			log_msg = Log_msg;
+		}
+	}
 
 	public class SimpleLogger
 	{
@@ -61,6 +82,24 @@ namespace logger
 				Console.WriteLine($"An error occured: {ex.Message}");
 			}
 		}
+		
+		private static void LogTestPassed(string log_msg)
+		{
+			try
+			{
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
+				{
+					TESTPASSED log = new TESTPASSED($"[TEST PASSED] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
+					JsonSerializer.Serialize<TESTPASSED>(fs, log);
+					fs.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
+					Console.WriteLine("Data about test has been saved to file");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"An error occurred: {ex.Message}");
+			}
+		}
 
 		private async Task LogErrorInternal(string log_msg)
 		{
@@ -77,6 +116,24 @@ namespace logger
 			catch (Exception ex)
 			{
 				Console.WriteLine($"An error occured: {ex.Message}");
+			}
+		}
+		
+		private static void LogTestFailed(string log_msg)
+		{
+			try
+			{
+				using (FileStream fs = new FileStream("logs.ndjson", FileMode.Append))
+				{
+					TESTFAILED log = new TESTFAILED($"[TEST FAILED] ({DateTime.Now:yyyy-MM-dd HH:mm:ss}): {log_msg}");
+					JsonSerializer.Serialize<TESTFAILED>(fs, log);
+					fs.Write(Encoding.UTF8.GetBytes(Environment.NewLine));
+					Console.WriteLine("Data about test has been saved to file");
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"An error occuted: {ex.Message}");
 			}
 		}
 		
@@ -116,7 +173,7 @@ namespace logger
 			}
 		}
 
-		private async Task ReadLogs()
+		private static void ReadLogs()
 		{
 			try
 			{
@@ -128,7 +185,7 @@ namespace logger
 						using (StreamReader reader = new StreamReader(fs))
 						{
 							string line;
-							while ((line = await reader.ReadLineAsync()) != null)
+							while ((line = reader.ReadLine()) != null)
 							{
 								logs.Add(line);
 							}
@@ -171,10 +228,21 @@ namespace logger
 			await LogDataInternal(message);
 		}
 
-		public async Task LogRead()
+		public void LogRead()
 		{
-			await ReadLogs();
+			ReadLogs();
+		}
+		
+		public void logTestPassed(string message)
+		{
+			LogTestPassed(message);
+		}
+		
+		public void logTestFailed(string message)
+		{
+			LogTestFailed(message);
 		}
 
 	}
+	
 }

@@ -75,7 +75,7 @@ namespace GUI
 
 						case "9":
 							var logger = new SimpleLogger();
-							await logger.LogRead();
+							logger.LogRead();
 							break;
 						default:
 							Console.WriteLine($"{choice} is probably not a command. If u think that command is correct, problem might be on program's side, idk, my code is shit dude");
