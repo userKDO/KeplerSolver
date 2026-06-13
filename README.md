@@ -73,7 +73,7 @@ dotnet run
 
 ## Also You can get this library on Nuget
 ```bash
-https://www.nuget.org/packages/KeplerSolver/
+dotnet add package KeplerSolver
 ```
 
 You can add your own tests in mathTests.cs if you wanna tests your new methods or if you think that my tests are shit
