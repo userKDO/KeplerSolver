@@ -58,7 +58,7 @@ var period = OrbitalCalculator.OrbitalPeriodviaHeight(satellite, Planet.Earth);
 ## GUI start
 ```bash
 ## in the reopository folder:
-cd KeplerSolver
+cd KeplerSolver.App
 dotnet run
 ## Then you will see main program GUI
 ```
@@ -70,5 +70,11 @@ cd KeplerSolver.Tests
 dotnet run
 ## Then you will see GUI for tests
 ```
+
+## Also You can get this library on Nuget
+```bash
+https://www.nuget.org/packages/KeplerSolver/
+```
+
 You can add your own tests in mathTests.cs if you wanna tests your new methods or if you think that my tests are shit
 If you think that my tests are shit, pls send me your test I'll be very glad to check and upgrade my library
